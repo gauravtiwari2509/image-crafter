@@ -2,7 +2,9 @@ import React from 'react'
 
 const CreditPage = () => {
   return (
-    <div>CreditPage</div>
+    <div>
+      Wait Available soon!!
+    </div>
   )
 }
 
