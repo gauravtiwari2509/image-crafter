@@ -9,15 +9,16 @@ const Home = async ({ searchParams }: SearchParamProps) => {
   const {userId}= auth()
   const page = Number(searchParams?.page) || 1;
   const searchQuery = (searchParams?.query as string) || '';
-  
+  // console.log(typeof userId)
+  const clerkId=userId;
   // const images = await getAllImages({ page, searchQuery})
-  if (!userId) {
+  if (!clerkId) {
     return
   }
   const images = await getUserImages({
     limit: 9,
     page: 1,
-    clerkId:userId
+    clerkId
   });  return (
     <>
       <section className="home">
