@@ -11,9 +11,12 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
   const { userId } = auth();
 
   if (!userId) redirect("/sign-in");
-
+  const clerkId = userId;
   const user = await getUserById(userId);
-  const images = await getUserImages({ page, userId: user._id });
+  const images = await getUserImages({
+    page,
+    clerkId  
+  });
 
   return (
     <>
