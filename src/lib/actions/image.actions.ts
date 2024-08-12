@@ -8,6 +8,8 @@ import Image from "../database/models/image.model";
 import { redirect } from "next/navigation";
 
 import { v2 as cloudinary } from 'cloudinary'
+import { auth } from "@clerk/nextjs/server";
+import mongoose from "mongoose";
 
 const populateUser = (query: any) => query.populate({
   path: 'author',
@@ -97,9 +99,12 @@ export async function getAllImages({ limit = 9, page = 1, searchQuery = '' }: {
   limit?: number;
   page: number;
   searchQuery?: string;
+
 }) {
   try {
+    const { userId } = auth();
     await connectToDatabase();
+    
 
     cloudinary.config({
       cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -154,23 +159,24 @@ export async function getAllImages({ limit = 9, page = 1, searchQuery = '' }: {
 export async function getUserImages({
   limit = 9,
   page = 1,
-  userId,
+  clerkId,
 }: {
   limit?: number;
   page: number;
-  userId: string;
+  clerkId: string;
 }) {
   try {
     await connectToDatabase();
 
     const skipAmount = (Number(page) - 1) * limit;
+    const user = await User.findOne({ clerkId }).exec();
 
-    const images = await populateUser(Image.find({ author: userId }))
+    const images = await populateUser(Image.find({ author: user }))
       .sort({ updatedAt: -1 })
       .skip(skipAmount)
       .limit(limit);
 
-    const totalImages = await Image.find({ author: userId }).countDocuments();
+    const totalImages = await Image.find({ author: user }).countDocuments();
 
     return {
       data: JSON.parse(JSON.stringify(images)),
