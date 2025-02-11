@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
@@ -22,8 +22,8 @@ export default function SignOutHomePage() {
         </h1>
         <p className="text-lg mb-8">
           Unlock your creative potential with our easy-to-use and feature-rich
-          image editing platform. Whether you're a professional or a beginner,
-          we've got you covered.
+          image editing platform. Whether you&apos;re a professional or a
+          beginner, we&apos;ve got you covered.
         </p>
 
         <div className="flex justify-center gap-4">
