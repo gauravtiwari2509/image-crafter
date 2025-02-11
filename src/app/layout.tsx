@@ -1,17 +1,8 @@
-
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import {
-  ClerkProvider,
-  ClerkLoaded,
-  ClerkLoading,
-  SignedOut,
-  SignIn,
-  SignUp,
-} from "@clerk/nextjs";
-import SignOutHomePage from "@/components/SignOutHomePage";
+import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 
 const IBM_Plex = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -38,13 +29,7 @@ export default function RootLayout({
           <ClerkLoading>
             <p>loading the content...</p>
           </ClerkLoading>
-          <ClerkLoaded>
-          <SignedOut>
-            <SignOutHomePage />
-          </SignedOut>
-          
-            {children}
-          </ClerkLoaded>
+          <ClerkLoaded>{children}</ClerkLoaded>
         </body>
       </html>
     </ClerkProvider>

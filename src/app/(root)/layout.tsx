@@ -1,19 +1,25 @@
 import MobileNav from "@/components/shared/MobileNav";
 import Sidebar from "@/components/shared/Sidebar";
-import { SignedIn } from "@clerk/nextjs";
+import SignOutHomePage from "@/components/SignOutHomePage";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import React from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <SignedIn>
-      <main className="root">
-      <Sidebar />
-      <MobileNav/>
-        <div className="root-container">
-          <div className="wrapper">{children}</div>
-        </div>
-      </main>
-    </SignedIn>
+    <>
+      <SignedIn>
+        <main className="root">
+          <Sidebar />
+          <MobileNav />
+          <div className="root-container">
+            <div className="wrapper">{children}</div>
+          </div>
+        </main>
+      </SignedIn>
+      <SignedOut>
+        <SignOutHomePage />
+      </SignedOut>
+    </>
   );
 };
 

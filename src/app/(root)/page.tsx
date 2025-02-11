@@ -1,26 +1,26 @@
-import { Collection } from "@/components/shared/Collection"
-import { navLinks } from "@/constants"
-import { getAllImages, getUserImages } from "@/lib/actions/image.actions"
-import { auth } from "@clerk/nextjs/server"
-import Image from "next/image"
-import Link from "next/link"
-import { redirect } from "next/navigation"
+import { Collection } from "@/components/shared/Collection";
+import { navLinks } from "@/constants";
+import { getAllImages, getUserImages } from "@/lib/actions/image.actions";
+import { auth } from "@clerk/nextjs/server";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const Home = async ({ searchParams }: SearchParamProps) => {
   const { userId } = auth();
   const page = Number(searchParams?.page) || 1;
-  const searchQuery = (searchParams?.query as string) || '';
-  const clerkId = userId;  // Ensure clerkId is used here
-  console.log(clerkId)
-  console.log(typeof clerkId)
+  const searchQuery = (searchParams?.query as string) || "";
+  const clerkId = userId; // Ensure clerkId is used here
+  console.log(clerkId);
+  console.log(typeof clerkId);
   if (!clerkId) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
   const images = await getUserImages({
     limit: 9,
     page,
-    clerkId  
+    clerkId,
   });
 
   return (
@@ -46,14 +46,10 @@ const Home = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="sm:mt-12">
-        <Collection 
-          hasSearch={true}
-          images={images?.data}
-          page={page}
-        />
+        <Collection hasSearch={true} images={images?.data} page={page} />
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
